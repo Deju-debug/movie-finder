@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Discover, explore, and save your next favorite movie.">
+  <title>MovieFinder | Discover your next favorite movie</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="#home" aria-label="MovieFinder home">
+        <span class="brand-mark" aria-hidden="true">M</span>
+        <span>MovieFinder</span>
+      </a>
+
+      <nav class="primary-nav" aria-label="Primary navigation">
+        <a class="nav-link is-active" href="#home">Home</a>
+        <a class="nav-link" href="#discover">Discover</a>
+        <a class="nav-link" href="#watchlist">Watchlist <span class="nav-count" aria-label="0 saved movies" id="nav-watchlist-count">0</span></a>
+      </nav>
+
+      <a class="header-action" href="#discover">Find a film <span aria-hidden="true">&rarr;</span></a>
+    </div>
+  </header>
+
+  <main id="home">
+    <section class="hero-section" id="discover" aria-labelledby="search-heading">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="eyebrow-line"></span> Curated for curious viewers</p>
+        <h1 id="search-heading">Discover your next <em>favorite</em> movie.</h1>
+        <p class="hero-description">Search the world's stories, from timeless classics to the films everyone's talking about.</p>
+      </div>
+
+      <form class="search-form" id="movie-search-form" role="search">
+        <label class="sr-only" for="movie-search-input">Search for a movie</label>
+        <span class="search-icon" aria-hidden="true">&#9906;</span>
+        <input id="movie-search-input" name="movie" type="search" placeholder="Search by title, actor, or keyword..." autocomplete="off">
+        <button class="button button-primary" id="movie-search-button" type="submit">Search <span aria-hidden="true">&rarr;</span></button>
+      </form>
+
+      <div class="status-stack" aria-live="polite">
+        <p class="status-message" id="loading-message"><span class="loading-spinner" aria-hidden="true"></span>Finding something great...</p>
+        <p class="status-message status-error" id="api-error-message">We couldn't reach the movie library. Please try again.</p>
+        <p class="status-message" id="no-results-message">No movies found. Try a different title or keyword.</p>
+      </div>
+    </section>
+
+    <section class="content-section results-section" aria-labelledby="results-heading">
+      <div class="section-heading-row">
+        <div>
+          <p class="eyebrow">Your next watch</p>
+          <h2 id="results-heading">Trending discoveries</h2>
+        </div>
+        <button class="filter-button" type="button" aria-label="Filter movie results">Filter <span aria-hidden="true">&#9776;</span></button>
+      </div>
+
+      <div id="movie-container" class="movie-grid" aria-live="polite"></div>
+
+      <!-- Example card structure for JavaScript-generated movie cards:
+      <article class="movie-card" data-movie-id="movie-id">
+        <div class="movie-poster-wrap">
+          <img class="movie-poster" src="poster-url" alt="Movie title poster">
+          <span class="movie-rating"><span aria-hidden="true">&#9733;</span> 8.4</span>
+          <button class="watchlist-toggle" type="button" aria-label="Add Movie title to watchlist">+</button>
+        </div>
+        <div class="movie-card-content">
+          <p class="movie-meta"><span class="movie-year">2024</span><span class="meta-dot"></span><span class="movie-genre">Drama</span></p>
+          <h3 class="movie-title">Movie title</h3>
+          <div class="movie-card-actions">
+            <button class="button button-small view-details-button" type="button">View details</button>
+            <button class="text-button add-watchlist-button" type="button">+ Watchlist</button>
+          </div>
+        </div>
+      </article>
+      -->
+    </section>
+
+    <section class="content-section watchlist-section" id="watchlist" aria-labelledby="watchlist-heading">
+      <div class="section-heading-row">
+        <div>
+          <p class="eyebrow">Saved for later</p>
+          <h2 id="watchlist-heading">Your watchlist</h2>
+        </div>
+        <span class="section-count" id="watchlist-count">0 films</span>
+      </div>
+      <div id="watchlist-container" class="movie-grid" aria-live="polite"></div>
+      <p class="empty-state" id="watchlist-empty-message">No movies in your watchlist yet.</p>
+    </section>
+  </main>
+
+  <section class="details-modal" id="movie-details-modal" role="dialog" aria-modal="true" aria-labelledby="details-title" hidden>
+    <div class="modal-backdrop" data-close-details></div>
+    <div class="details-panel">
+      <button class="modal-close" id="close-details-button" type="button" aria-label="Close movie details">&times;</button>
+      <div class="details-layout">
+        <div class="details-poster-wrap">
+          <img class="details-poster" id="details-poster" src="" alt="">
+        </div>
+        <div class="details-copy">
+          <p class="eyebrow" id="eyebrow">Movie details</p>
+          <h2 id="details-title">Movie title</h2>
+          <div class="details-meta">
+            <span id="details-release-date">Release date</span>
+            <span class="meta-dot"></span>
+            <span id="details-rating">Rating</span>
+            <span class="meta-dot"></span>
+            <span id="details-runtime">Runtime</span>
+          </div>
+          <div class="genre-list" id="details-genres" aria-label="Genres"></div>
+          <p class="details-overview" id="details-overview">Movie overview will appear here.</p>
+          <button class="button button-primary" id="details-watchlist-button" type="button">+ Add to watchlist</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 MovieFinder</p>
+    <p>Made for nights worth remembering.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
