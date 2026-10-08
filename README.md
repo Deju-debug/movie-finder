@@ -4,11 +4,8 @@ MovieFinder is a movie discovery web application built with HTML, CSS, and vanil
 
 ## 🚀 Live Demo
 
-[View MovieFinder](YOUR_GITHUB_PAGES_LINK)
+https://deju-debug.github.io/movie-finder/
 
-## 📸 Preview
-
-![MovieFinder Screenshot](assets/screenshots/moviefinder-preview.png)
 
 ## ✨ Features
 
